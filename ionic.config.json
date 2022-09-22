@@ -1,0 +1,7 @@
+{
+  "name": "servicos-bdourados",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
