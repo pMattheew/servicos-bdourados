@@ -1,9 +1,29 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>cadastro-servico</ion-title>
+    <ion-title>Cadastrar serviço</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+
+  <form>
+    <div class="mb-3">
+      <label for="inputNome" class="form-label">Nome do serviço</label>
+      <input type="text" class="form-control" id="inputNome">
+    </div>
+    <div class="mb-3">
+      <label for="inputValor" class="form-label">Valor do serviço</label>
+      <div class="input-group mb-3">
+        <span class="input-group-text">R$</span>
+        <input type="number" class="form-control ion-text-end" id="inputValor">
+        <span class="input-group-text">,00</span>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="inputDescricao" class="form-label">Descrição do serviço</label>
+      <input type="text" class="form-control" id="inputDescricao">
+    </div>
+    <button type="submit" class="btn btn-primary">Cadastrar serviço</button>
+  </form>
 
 </ion-content>
