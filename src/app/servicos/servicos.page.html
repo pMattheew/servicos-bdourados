@@ -5,12 +5,14 @@
 </ion-header>
 
 <ion-content>
-  <div class="card" style="width: 18rem;">
-    <div class="card-body">
-      <h5 class="card-title">Corte</h5>
-      <h6 class="card-subtitle mb-2 text-muted">R$ 40,00</h6>
-      <p class="card-text">Faça seu corte com os melhores barbeiros</p>
-      <a routerLink="/cadastro-servico" routerDirection="forward" class="card-link">Editar serviço</a>
+  <div class="list-group">
+    <div class="card" style="width: 18rem;" *ngFor="let servico of servicos$|async">
+      <div class="card-body">
+        <h5 class="card-title">{{ servico.nome }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">R$ {{ servico.preco }}</h6>
+        <p class="card-text">{{ servico.descricao }}</p>
+        <a routerLink="/cadastro-servico" routerDirection="forward" class="card-link">Editar serviço</a>
+      </div>
     </div>
   </div>
 </ion-content>
