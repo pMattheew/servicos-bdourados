@@ -14,4 +14,13 @@ export class ServicosService {
     getServicos(): Observable<Servico[]> {
         return this.http.get<Servico[]>('https://api-servicos-bdourados.herokuapp.com/public/api/servicos')
     }
+
+    addServico(servico: Servico): Observable<Servico> {
+        return this.http.post<Servico>('https://api-servicos-bdourados.herokuapp.com/public/api/servicos', servico);
+    }
+    
+    updateServico(servicoId: number, servico: Servico): Observable<Servico> {
+        return this.http.put<Servico>(`https://api-servicos-bdourados.herokuapp.com/public/api/servicos/${servicoId}`, servico);
+    }
+    
 }

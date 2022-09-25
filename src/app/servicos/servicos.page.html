@@ -1,6 +1,11 @@
 <ion-header>
-  <ion-toolbar class="ion-text-center">
-    <button type="submit" class="btn btn-primary" routerLink="/cadastro-servico" routerDirection="forward">Cadastrar novo serviço</button>
+  <ion-toolbar>
+    <ion-title>Serviços Dourado's</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/cadastro-servico" routerDirection="forward">
+        <ion-icon slot="start" name="add"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -11,7 +16,7 @@
         <h5 class="card-title">{{ servico.nome }}</h5>
         <h6 class="card-subtitle mb-2 text-muted">R$ {{ servico.preco }}</h6>
         <p class="card-text">{{ servico.descricao }}</p>
-        <a routerLink="/cadastro-servico" routerDirection="forward" class="card-link">Editar serviço</a>
+        <a class="card-link" (click)="abrirModalEditar(servico)">Editar serviço</a>
       </div>
     </div>
   </div>
