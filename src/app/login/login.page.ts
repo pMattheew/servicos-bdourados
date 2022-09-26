@@ -14,7 +14,7 @@ export class LoginPage implements OnInit {
 
   constructor(
     private loadingCtrl: LoadingController,
-    private alerta: AlertController,
+    public alerta: AlertController,
     private nav: NavController,
     private usrService: UsuarioService
 
@@ -30,26 +30,38 @@ export class LoginPage implements OnInit {
       password: new FormControl(null, [Validators.required]),
     });
   }
+
   
-  async fazerLogin() {
-    const loading = await this.loadingCtrl.create({message:'Carregando...'});
-    loading.present();
-    
+  async criarAlerta(titulo: string, msg: string) {
+
     const alert = await this.alerta.create({
-      header: "=D",
-      message: 'Usuário logado com sucesso!',
+      header: titulo,
+      message: msg,
       buttons: ['OK']
     });
 
+    return alert.present();
+  }
+  
+  async fazerLogin() {
+
+    const loading = await this.loadingCtrl.create({message:'Carregando...'});
+    loading.present();
+    
     this.usrService.logarUsuario(this.form.value)
     .pipe(take(1))
-    .subscribe((usuario) => {
-      console.log(usuario);
-      loading.dismiss();
-      alert.present();
-      this.nav.navigateForward('/servicos');
-    })
+    .subscribe(() => {
 
+      loading.dismiss();
+      this.nav.navigateForward('/servicos');
+      this.criarAlerta('=D','Usuário logado com sucesso!');
+
+    }, (ex) => {
+
+      loading.dismiss();
+      this.criarAlerta('Ops!','A autenticação falhou, verifique os dados e tente novamente.');
+    })
+    
   }
 
 }

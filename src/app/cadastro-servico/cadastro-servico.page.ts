@@ -4,7 +4,7 @@ import { LoadingController, ModalController } from '@ionic/angular';
 import { Observable, observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { ServicosService } from '../services/servico.service';
-import { Servico } from '../servicos/servico.model';
+import { Servico } from '../models/servico.model';
 
 @Component({
   selector: 'app-cadastro-servico',
@@ -83,7 +83,7 @@ export class CadastroServicoPage implements OnInit {
         else
         {
           let msg = document.createElement('div');
-          msg.innerText = "Serviço atualizado com sucesso! Atualize a página.";
+          msg.innerText = "Serviço cadastrado com sucesso! Atualize a página.";
           msg.classList.add("alert");
           msg.classList.add("alert-info");
           document.getElementById('ic').appendChild(msg);

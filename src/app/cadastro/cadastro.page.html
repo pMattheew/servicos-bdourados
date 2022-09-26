@@ -11,9 +11,13 @@
     </div>
     <div class="mb-3">
       <label for="inputPassword" class="form-label">Senha</label>
-      <input formControlName="password" type="password" class="form-control" id="inputPassword">
+      <input formControlName="password" type="password" class="form-control" id="inputPassword" [(ngModel)]="password">
     </div>
-    <button type="submit" class="btn btn-primary" (click)="enviarUsuario()" [disabled]="form.invalid">Fazer cadastro</button>
+    <div class="mb-3">
+      <label class="form-text">A senha deve possuir ao menos 8 caracteres.</label>
+    </div>
+    <button class="mb-3" type="submit" class="btn btn-primary" (click)="enviarUsuario()" [disabled]="form.invalid">Fazer cadastro</button>
+    <button class="mb-3" type="button" class="btn btn-outline-secondary" routerLink="/login" routerDirection="back">Voltar</button>
   </form>
 
 </ion-content>

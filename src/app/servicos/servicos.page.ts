@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { CadastroServicoPage } from '../cadastro-servico/cadastro-servico.page';
 import { ServicosService } from '../services/servico.service';
-import { Servico } from './servico.model';
+import { Servico } from '../models/servico.model';
 
 @Component({
   selector: 'app-servicos',

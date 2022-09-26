@@ -11,12 +11,13 @@ import { UsuarioService } from '../services/user.service';
 })
 export class CadastroPage implements OnInit {
   form: FormGroup;
+  password: any;
 
   constructor(
     private loadingCtrl: LoadingController,
     private usrService: UsuarioService,
     private nav: NavController,
-    private alerta: AlertController
+    public alerta: AlertController
   ) { }
 
   ngOnInit() {
@@ -31,23 +32,43 @@ export class CadastroPage implements OnInit {
     });
   }
 
-  async enviarUsuario() {
-    const loading = await this.loadingCtrl.create({message:'Carregando...'});
-    loading.present();
-    
-    const alert = await this.alerta.create({
-      header: "=D",
-      message: 'Usuário cadastrado com sucesso!',
-      buttons: ['OK']
-    })
+  async criarAlerta(titulo: string, msg: string) {
 
+    const alert = await this.alerta.create({
+      header: titulo,
+      message: msg,
+      buttons: ['OK']
+    });
+
+    return alert.present();
+  }
+
+  async enviarUsuario() {
+    
+    const loading = await this.loadingCtrl.create({message:'Carregando...'});
+
+    loading.present();
+
+    if (this.password.length < 8)
+    {
+      loading.dismiss();
+      return this.criarAlerta('Ops!','A senha deve ser igual ou maior do que 8 caracteres.');
+    }
+    
     this.usrService.registrarUsuario(this.form.value)
     .pipe(take(1))
-    .subscribe((usuario) => {
-      console.log(usuario);
+    .subscribe(() => {
+
       loading.dismiss();
-      alert.present();
       this.nav.navigateBack('/login');
-    })
+      this.criarAlerta('=D', 'Usuário cadastrado com sucesso!')
+
+    }, (ex) => {
+
+      loading.dismiss();
+      this.criarAlerta('Ops!', 'Um erro ocorreu, certifique-se de inserir um email válido.');
+
+    });
+    
   }
 }
