@@ -1,23 +1,19 @@
 <ion-content>
 
-  <form>
+  <form [formGroup]="form">
     <div class="mb-3">
       <label for="inputNome" class="form-label">Nome completo</label>
-      <input type="text" class="form-control" id="inputNome">
+      <input formControlName="name" type="text" class="form-control" id="inputNome">
     </div>
     <div class="mb-3">
       <label for="inputEmail" class="form-label">Email</label>
-      <input type="email" class="form-control" id="inputEmail">
+      <input formControlName="email" type="email" class="form-control" id="inputEmail">
     </div>
     <div class="mb-3">
       <label for="inputPassword" class="form-label">Senha</label>
-      <input type="password" class="form-control" id="inputPassword">
+      <input formControlName="password" type="password" class="form-control" id="inputPassword">
     </div>
-    <div class="mb-3">
-      <label for="inputRepeatPassword" class="form-label">Confirmar senha</label>
-      <input type="password" class="form-control" id="inputRepeatPassword">
-    </div>
-    <button type="submit" class="btn btn-primary" routerLink="/login" routerDirection="forward">Fazer cadastro</button>
+    <button type="submit" class="btn btn-primary" (click)="enviarUsuario()" [disabled]="form.invalid">Fazer cadastro</button>
   </form>
 
 </ion-content>

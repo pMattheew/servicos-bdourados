@@ -50,6 +50,12 @@ export class CadastroServicoPage implements OnInit {
     this.form.updateValueAndValidity();
   }
 
+  async fecharModal(data = null) {
+    if (this.isEditMode) {
+      this.modalCtrl.dismiss(data);
+    }
+  }
+
   async enviarServico() {
     const loading = await this.loadingCtrl.create({message:'Carregando...'});
     loading.present();
@@ -68,24 +74,22 @@ export class CadastroServicoPage implements OnInit {
       response.pipe(take(1)).subscribe((servico) => {
         this.form.reset();
         loading.dismiss();
-
-        let msg = document.createElement('div');
-        msg.innerText = "Serviço " + (this.isEditMode ? "atualizado" : "cadastrado") + " com sucesso!" + (this.isEditMode ? "" : " Atualize a página.");
-        msg.classList.add("alert");
-        msg.classList.add("alert-info");
-        document.getElementById('ic').appendChild(msg);
-
+        
+        
         if (this.isEditMode)
         {
           this.fecharModal(servico)
         }
+        else
+        {
+          let msg = document.createElement('div');
+          msg.innerText = "Serviço atualizado com sucesso! Atualize a página.";
+          msg.classList.add("alert");
+          msg.classList.add("alert-info");
+          document.getElementById('ic').appendChild(msg);
+        }
       })
   }
 
-  async fecharModal(data = null) {
-    if (this.isEditMode) {
-      this.modalCtrl.dismiss(data);
-    }
-  }
 
 }
