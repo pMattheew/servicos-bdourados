@@ -3,9 +3,9 @@ import { LoadingController, ModalController, NavController } from '@ionic/angula
 import { Observable } from 'rxjs';
 import { map, take, tap } from 'rxjs/operators';
 import { CadastroServicoPage } from '../cadastro-servico/cadastro-servico.page';
-import { ServicosService } from '../services/servico.service';
-import { Servico } from '../models/servico.model';
-import { UsuarioService } from '../services/user.service';
+import { ServicosService } from '../resources/services/servico.service';
+import { Servico } from '../resources/models/servico.model';
+import { UsuarioService } from '../resources/services/user.service';
 
 @Component({
   selector: 'app-servicos',
@@ -24,7 +24,7 @@ export class ServicosPage implements OnInit {
   ) { }
 
   async ngOnInit() {
-
+    // check de autenticação
     if (!this.usrService.estaLogado())
     {
       this.usrService.deslogar();
@@ -32,7 +32,7 @@ export class ServicosPage implements OnInit {
     } 
     else
     {
-      const loading = await this.loadingCtrl.create({message:'Carregando...'});
+      const loading = await this.loadingCtrl.create({message:'Carregando serviços...'});
       loading.present();
 
       this.carregarServicos();
@@ -76,6 +76,7 @@ export class ServicosPage implements OnInit {
     {
       this.servicos$ = this.servicos$.pipe(
           map((servicos) => {
+
             servicos.forEach(serv => {
               if (serv.id === servicoAtualizado.id)
               {
@@ -83,6 +84,7 @@ export class ServicosPage implements OnInit {
               }
               return serv;
             });
+
             return servicos;
         })
       )
@@ -92,7 +94,7 @@ export class ServicosPage implements OnInit {
 
   async excluirServico(id) {
 
-    const loading = await this.loadingCtrl.create({message:'Deletando...'});
+    const loading = await this.loadingCtrl.create({message:'Excluindo...'});
     loading.present();
 
     this.servicosService.deleteServico(id)

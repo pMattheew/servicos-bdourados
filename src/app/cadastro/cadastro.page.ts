@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AlertController, LoadingController, NavController } from '@ionic/angular';
 import { take } from 'rxjs/operators';
-import { UsuarioService } from '../services/user.service';
+import { UsuarioService } from '../resources/services/user.service';
 
 @Component({
   selector: 'app-cadastro',
@@ -47,7 +47,7 @@ export class CadastroPage implements OnInit {
 
   async enviarUsuario() {
     
-    const loading = await this.loadingCtrl.create({message:'Carregando...'});
+    const loading = await this.loadingCtrl.create({message:'Cadastrando usuário...'});
 
     loading.present();
 
@@ -65,7 +65,7 @@ export class CadastroPage implements OnInit {
       this.nav.navigateBack('/login');
       this.criarAlerta('=D', 'Usuário cadastrado com sucesso!')
 
-    }, (ex) => {
+    }, () => {
 
       loading.dismiss();
       this.criarAlerta('Ops!', 'Um erro ocorreu, certifique-se de inserir um email válido.');

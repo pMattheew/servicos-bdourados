@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoadingController, ModalController, NavController } from '@ionic/angular';
-import { Observable, observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { ServicosService } from '../services/servico.service';
-import { Servico } from '../models/servico.model';
-import { UsuarioService } from '../services/user.service';
+import { ServicosService } from '../resources/services/servico.service';
+import { Servico } from '../resources/models/servico.model';
+import { UsuarioService } from '../resources/services/user.service';
 
 @Component({
   selector: 'app-cadastro-servico',
@@ -26,7 +26,7 @@ export class CadastroServicoPage implements OnInit {
     ) { }
 
   ngOnInit() {
-    
+    // check de autenticação
     if (!this.usrService.estaLogado())
     {
       this.usrService.deslogar();
@@ -63,13 +63,16 @@ export class CadastroServicoPage implements OnInit {
   }
 
   async fecharModal(data = null) {
+    // irá receber serviço atualizado
     if (this.isEditMode) {
       this.modalCtrl.dismiss(data);
     }
   }
 
   async enviarServico() {
-    const loading = await this.loadingCtrl.create({message:'Carregando...'});
+
+    const loading = await this.loadingCtrl.create({message:  (this.isEditMode ? 'Atualizando' : 'Cadastrando') + ' serviço...'});
+
     loading.present();
 
     let response: Observable<Servico>;
@@ -84,9 +87,9 @@ export class CadastroServicoPage implements OnInit {
     }
 
       response.pipe(take(1)).subscribe((servico) => {
+
         this.form.reset();
         loading.dismiss();
-        
         
         if (this.isEditMode)
         {
@@ -98,6 +101,7 @@ export class CadastroServicoPage implements OnInit {
           msg.innerText = "Serviço cadastrado com sucesso! Atualize a página.";
           msg.classList.add("alert");
           msg.classList.add("alert-info");
+          msg.style.margin = "0 10%";
           document.getElementById('ic').appendChild(msg);
         }
       })

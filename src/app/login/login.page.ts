@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AlertController, LoadingController, NavController } from '@ionic/angular';
 import { take } from 'rxjs/operators';
-import { UsuarioService } from '../services/user.service';
+import { UsuarioService } from '../resources/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -50,7 +50,7 @@ export class LoginPage implements OnInit {
   
   async fazerLogin() {
 
-    const loading = await this.loadingCtrl.create({message:'Carregando...'});
+    const loading = await this.loadingCtrl.create({message:'Autenticando...'});
 
     loading.present();
 
