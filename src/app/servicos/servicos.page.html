@@ -5,6 +5,9 @@
       <ion-button routerLink="/cadastro-servico" routerDirection="forward">
         <ion-icon slot="start" name="add"></ion-icon>
       </ion-button>
+      <ion-button routerLink="/login" routerDirection="back" (click)="this.usrService.deslogar()">
+        <ion-icon name="log-out-outline"></ion-icon>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>

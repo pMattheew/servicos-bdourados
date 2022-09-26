@@ -20,7 +20,7 @@ export class ServicosPage implements OnInit {
     private loadingCtrl: LoadingController,
     private modalCtrl: ModalController,
     private nav: NavController,
-    private usrService: UsuarioService
+    public usrService: UsuarioService
   ) { }
 
   async ngOnInit() {
