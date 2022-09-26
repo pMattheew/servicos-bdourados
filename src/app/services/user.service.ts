@@ -21,4 +21,16 @@ export class UsuarioService {
         return this.http.post<Usuario>('https://api-servicos-bdourados.herokuapp.com/public/api/login', usuario);
     }
 
+    estaLogado() {
+       return (localStorage.getItem('isLogged') == 'true') ? true : false
+    }
+
+    logar() {
+        return localStorage.setItem('isLogged', 'true');
+    }
+
+    deslogar() {
+        return localStorage.setItem('isLogged', 'false');
+    }
+
 }

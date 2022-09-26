@@ -1,10 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { LoadingController, ModalController } from '@ionic/angular';
+import { LoadingController, ModalController, NavController } from '@ionic/angular';
 import { Observable, observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { ServicosService } from '../services/servico.service';
 import { Servico } from '../models/servico.model';
+import { UsuarioService } from '../services/user.service';
 
 @Component({
   selector: 'app-cadastro-servico',
@@ -19,16 +20,27 @@ export class CadastroServicoPage implements OnInit {
   constructor(
     private servicosService: ServicosService,
     private loadingCtrl: LoadingController,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private nav: NavController,
+    private usrService: UsuarioService
     ) { }
 
   ngOnInit() {
-    this.initAddServicoForm();
-
-    if (this.servico)
+    
+    if (!this.usrService.estaLogado())
     {
-      this.isEditMode = true;
-      this.setarValoresForm();
+      this.usrService.deslogar();
+      this.nav.navigateBack('/login');
+    } 
+    else
+    {
+      this.initAddServicoForm();
+  
+      if (this.servico)
+      {
+        this.isEditMode = true;
+        this.setarValoresForm();
+      }
     }
   }
 

@@ -21,6 +21,8 @@ export class CadastroPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    if (!this.usrService.estaLogado()) this.usrService.deslogar();
+    
     this.initUsuarioForm();
   }
 

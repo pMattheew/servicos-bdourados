@@ -16,8 +16,8 @@
     <div class="mb-3">
       <label class="form-text">A senha deve possuir ao menos 8 caracteres.</label>
     </div>
-    <button class="mb-3" type="submit" class="btn btn-primary" (click)="enviarUsuario()" [disabled]="form.invalid">Fazer cadastro</button>
-    <button class="mb-3" type="button" class="btn btn-outline-secondary" routerLink="/login" routerDirection="back">Voltar</button>
+    <button type="submit" class="mb-3 btn btn-primary" (click)="enviarUsuario()" [disabled]="form.invalid">Fazer cadastro</button>
+    <button type="button" class="mb-3 btn btn-outline-secondary" routerLink="/login" routerDirection="back">Voltar</button>
   </form>
 
 </ion-content>

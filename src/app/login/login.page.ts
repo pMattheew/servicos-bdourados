@@ -21,6 +21,11 @@ export class LoginPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    if (!this.usrService.estaLogado()) 
+      this.usrService.deslogar(); 
+    else
+      this.nav.navigateForward('/servicos');
+    
     this.initUsuarioForm();
   }
 
@@ -46,18 +51,21 @@ export class LoginPage implements OnInit {
   async fazerLogin() {
 
     const loading = await this.loadingCtrl.create({message:'Carregando...'});
+
     loading.present();
-    
+
     this.usrService.logarUsuario(this.form.value)
     .pipe(take(1))
     .subscribe(() => {
 
+      this.usrService.logar();
       loading.dismiss();
       this.nav.navigateForward('/servicos');
       this.criarAlerta('=D','Usuário logado com sucesso!');
 
-    }, (ex) => {
+    }, () => {
 
+      this.usrService.deslogar();
       loading.dismiss();
       this.criarAlerta('Ops!','A autenticação falhou, verifique os dados e tente novamente.');
     })
