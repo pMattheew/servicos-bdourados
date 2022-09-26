@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadingController, ModalController, NavController } from '@ionic/angular';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map, take, tap } from 'rxjs/operators';
 import { CadastroServicoPage } from '../cadastro-servico/cadastro-servico.page';
 import { ServicosService } from '../services/servico.service';
 import { Servico } from '../models/servico.model';
@@ -90,7 +90,27 @@ export class ServicosPage implements OnInit {
     
   }
 
-  async excluirServico(servico: Servico) {
+  async excluirServico(id) {
+
+    const loading = await this.loadingCtrl.create({message:'Deletando...'});
+    loading.present();
+
+    this.servicosService.deleteServico(id)
+      .pipe(take(1))
+      .subscribe(() => {
+
+        document.getElementById(id).classList.remove('card');
+        document.getElementById(id).style.margin = '5% auto';
+        document.getElementById(id).innerHTML = `
+          <div class="alert alert-info">
+            Serviço excluído com sucesso!
+          </div>
+        `;
+
+        loading.dismiss();
+
+      });
+    
 
   }
 

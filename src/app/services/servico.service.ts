@@ -22,5 +22,8 @@ export class ServicosService {
     updateServico(servicoId: number, servico: Servico): Observable<Servico> {
         return this.http.put<Servico>(`https://api-servicos-bdourados.herokuapp.com/public/api/servicos/${servicoId}`, servico);
     }
-    
+
+    deleteServico(servicoId: number): Observable<Servico> {
+        return this.http.delete<Servico>(`https://api-servicos-bdourados.herokuapp.com/public/api/servicos/${servicoId}`);
+    }
 }

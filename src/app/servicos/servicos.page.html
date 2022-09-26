@@ -17,13 +17,13 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
   <div class="list-group">
-    <div class="card" style="width: 18rem;" *ngFor="let servico of servicos$|async">
+    <div class="card" id="{{ servico.id }}" style="width: 18rem;" *ngFor="let servico of servicos$|async">
       <div class="card-body">
         <h5 class="card-title">{{ servico.nome }}</h5>
         <h6 class="card-subtitle mb-2 text-muted">R$ {{ servico.preco }}</h6>
         <p class="card-text">{{ servico.descricao }}</p>
         <a class="card-link" (click)="abrirModalEditar(servico)">Editar serviço</a>
-        <a class="card-link text-danger" (click)="excluirServico(servico)">Excluir serviço</a>
+        <a class="card-link text-danger" (click)="excluirServico(servico.id)">Excluir serviço</a>
       </div>
     </div>
   </div>
