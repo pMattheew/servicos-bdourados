@@ -34,17 +34,35 @@ export class ServicosPage implements OnInit {
     {
       const loading = await this.loadingCtrl.create({message:'Carregando...'});
       loading.present();
-  
-      this.servicos$ = this.servicosService.getServicos().pipe(
-        tap((servicos) => {
-          loading.dismiss();
-          return servicos;
-        })
-      )
+
+      this.carregarServicos();
+
+      loading.dismiss();
     }
   }
 
+  async carregarServicos() {
+
+    this.servicos$ = this.servicosService.getServicos().pipe(
+      tap((servicos) => {
+        return servicos;
+      })
+    )
+
+  }
+
+  async atualizarServicos(event) {
+
+    this.carregarServicos();
+
+    setTimeout(() => {
+      event.target.complete();
+    }, 2000);
+
+  }
+
   async abrirModalEditar(servico: Servico) {
+
     const modal = await this.modalCtrl.create({
       component: CadastroServicoPage,
       componentProps: { servico: servico }
@@ -69,6 +87,11 @@ export class ServicosPage implements OnInit {
         })
       )
     }
+    
+  }
+
+  async excluirServico(servico: Servico) {
+
   }
 
 }
